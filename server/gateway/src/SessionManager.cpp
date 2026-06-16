@@ -10,13 +10,15 @@ SessionManager::SessionManager() = default;
 void SessionManager::addSession(std::shared_ptr<ClientSession> session) {
     std::lock_guard<std::mutex> lock(mutex_);
     
-    const std::string& playerId = session->playerId();
+    std::string playerId = session->playerId();
     if (playerId.empty()) {
         // Generate temporary ID for unauthenticated session
         playerId = "temp_" + std::to_string(session->socket());
+        session->setPlayerId(playerId);
     }
     
     sessions_[playerId] = session;
+
     socketToPlayer_[session->socket()] = playerId;
     playerZones_[playerId] = session->zoneId();
     

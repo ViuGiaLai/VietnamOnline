@@ -3,17 +3,21 @@
 #include "SessionManager.hpp"
 #include <iostream>
 #include <cstring>
+#include <errno.h>
+
+#ifdef _WIN32
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#pragma comment(lib, "ws2_32.lib")
+using ssize_t = int;
+#else
 #include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <fcntl.h>
-#include <errno.h>
-
-#ifdef _WIN32
-#include <winsock2.h>
-#pragma comment(lib, "ws2_32.lib")
 #endif
+
 
 namespace vno::server {
 
@@ -56,7 +60,11 @@ void WebSocketServer::startup() {
 
     // Set socket options
     int opt = 1;
+#ifdef _WIN32
+    setsockopt(serverSocket_, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&opt), sizeof(opt));
+#else
     setsockopt(serverSocket_, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+#endif
 
     // Bind
     struct sockaddr_in addr;
@@ -129,15 +137,27 @@ void WebSocketServer::shutdown() {
 void WebSocketServer::acceptLoop() {
     while (running_.load()) {
         struct sockaddr_in clientAddr;
-        socklen_t clientLen = sizeof(clientAddr);
-        
+#ifdef _WIN32
+        int clientLen = sizeof(clientAddr);
         int clientSocket = accept(serverSocket_, (struct sockaddr*)&clientAddr, &clientLen);
+#else
+        socklen_t clientLen = sizeof(clientAddr);
+        int clientSocket = accept(serverSocket_, (struct sockaddr*)&clientAddr, &clientLen);
+#endif
         
         if (clientSocket < 0) {
+#ifdef _WIN32
+            int err = WSAGetLastError();
+            if (err == WSAEWOULDBLOCK || err == WSAEINPROGRESS) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                continue;
+            }
+#else
             if (errno == EAGAIN || errno == EWOULDBLOCK) {
                 std::this_thread::sleep_for(std::chrono::milliseconds(50));
                 continue;
             }
+#endif
             break;
         }
 
@@ -183,8 +203,17 @@ void WebSocketServer::handleClientData(int clientSocket) {
     
     if (bytes <= 0) {
         // Client disconnected
-        if (bytes < 0 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
-            return;
+        if (bytes < 0) {
+#ifdef _WIN32
+            int err = WSAGetLastError();
+            if (err == WSAEWOULDBLOCK || err == WSAEINPROGRESS) {
+                return;
+            }
+#else
+            if (errno == EAGAIN || errno == EWOULDBLOCK) {
+                return;
+            }
+#endif
         }
         
         // Find and remove session

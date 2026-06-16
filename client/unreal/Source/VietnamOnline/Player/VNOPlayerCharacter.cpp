@@ -238,3 +238,68 @@ void AVNOPlayerCharacter::OpenQuestJournal()
         Q->LogActiveQuests();
     }
 }
+
+void AVNOPlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    
+    DOREPLIFETIME(AVNOPlayerCharacter, ReplicatedLocation);
+    DOREPLIFETIME(AVNOPlayerCharacter, ReplicatedRotation);
+    DOREPLIFETIME(AVNOPlayerCharacter, ReplicatedMovementState);
+    DOREPLIFETIME(AVNOPlayerCharacter, ReplicatedVehicleType);
+}
+
+void AVNOPlayerCharacter::OnRep_ReplicatedMovement()
+{
+    SetActorLocation(ReplicatedLocation);
+    SetActorRotation(ReplicatedRotation);
+}
+
+void AVNOPlayerCharacter::OnRep_MovementState()
+{
+    // Update movement based on replicated state
+    UE_LOG(LogTemp, Log, TEXT("[VNO] Replicated state: %d"), ReplicatedMovementState);
+}
+
+void AVNOPlayerCharacter::OnRep_VehicleType()
+{
+    UE_LOG(LogTemp, Log, TEXT("[VNO] Replicated vehicle: %d"), ReplicatedVehicleType);
+}
+
+void AVNOPlayerCharacter::ConnectToServer(const FString& ServerUrl, int32 Port)
+{
+    if (!WebSocketClient.IsValid())
+    {
+        WebSocketClient = NewObject<UVNOWebSocketClient>(this);
+    }
+    
+    if (WebSocketClient->Connect(ServerUrl, Port))
+    {
+        bIsOnline = true;
+        UE_LOG(LogTemp, Log, TEXT("[VNO] Connected to server"));
+    }
+}
+
+void AVNOPlayerCharacter::DisconnectFromServer()
+{
+    if (WebSocketClient.IsValid())
+    {
+        WebSocketClient->Disconnect();
+    }
+    bIsOnline = false;
+    OtherPlayerCount = 0;
+}
+
+void AVNOPlayerCharacter::SendPositionToServer()
+{
+    if (!WebSocketClient.IsValid() || !bIsOnline) return;
+    
+    FVector Pos = GetActorLocation();
+    FRotator Rot = GetActorRotation();
+    
+    WebSocketClient->SendPositionUpdate(
+        Pos.X, Pos.Y, Pos.Z,
+        Rot.Yaw,
+        static_cast<int8>(ReplicatedMovementState),
+        static_cast<int8>(ReplicatedVehicleType));
+}

@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "VNOPlayerCharacter.generated.h"
+#include "Network/VNOWebSocketClient.h"
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -18,6 +19,19 @@ public:
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+    // Replication
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+    // Callbacks for replicated properties
+    UFUNCTION()
+    void OnRep_ReplicatedMovement();
+
+    UFUNCTION()
+    void OnRep_MovementState();
+
+    UFUNCTION()
+    void OnRep_VehicleType();
 
     UFUNCTION(BlueprintPure, Category = "VNO|Player")
     float GetStaminaPercent() const;
@@ -39,6 +53,22 @@ public:
     void ApplyAppearanceFromState(class AVNOPlayerState* PlayerState);
 
     void SetupMannequinMesh();
+
+    // Multiplayer
+    UFUNCTION(BlueprintCallable, Category = "VNO|Multiplayer")
+    void ConnectToServer(const FString& ServerUrl, int32 Port);
+
+    UFUNCTION(BlueprintCallable, Category = "VNO|Multiplayer")
+    void DisconnectFromServer();
+
+    UFUNCTION(BlueprintCallable, Category = "VNO|Multiplayer")
+    void SendPositionToServer();
+
+    UFUNCTION(BlueprintPure, Category = "VNO|Multiplayer")
+    bool IsOnline() const { return bIsOnline; }
+
+    UFUNCTION(BlueprintPure, Category = "VNO|Multiplayer")
+    int32 GetOtherPlayerCount() const { return OtherPlayerCount; }
 
 protected:
     void MoveForward(float Value);
@@ -86,4 +116,31 @@ protected:
 
     UFUNCTION(BlueprintPure, Category = "VNO|UI")
     bool IsMinimapVisible() const { return bShowMinimap; }
+
+    // Replicated properties for multiplayer
+    UPROPERTY(Replicated, BlueprintReadOnly, Category = "VNO|Multiplayer")
+    FVector ReplicatedLocation;
+
+    UPROPERTY(Replicated, BlueprintReadOnly, Category = "VNO|Multiplayer")
+    FRotator ReplicatedRotation;
+
+    UPROPERTY(Replicated, BlueprintReadOnly, Category = "VNO|Multiplayer")
+    uint8 ReplicatedMovementState;
+
+    UPROPERTY(Replicated, BlueprintReadOnly, Category = "VNO|Multiplayer")
+    uint8 ReplicatedVehicleType;
+
+    // Online state
+    UPROPERTY(BlueprintReadOnly, Category = "VNO|Multiplayer")
+    bool bIsOnline = false;
+
+    UPROPERTY(BlueprintReadOnly, Category = "VNO|Multiplayer")
+    int32 OtherPlayerCount = 0;
+
+    // WebSocket client
+    TObjectPtr<UVNOWebSocketClient> WebSocketClient;
+
+    // Last sync time
+    float LastSyncTime = 0.0f;
+    static constexpr float SYNC_INTERVAL = 0.05f; // 20Hz
 };

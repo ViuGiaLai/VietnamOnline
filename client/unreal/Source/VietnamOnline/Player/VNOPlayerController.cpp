@@ -1,6 +1,7 @@
 #include "Player/VNOPlayerController.h"
 #include "Core/VNOGameInstance.h"
 #include "Core/VNOEnvSettings.h"
+#include "InputCoreTypes.h"
 #include "Player/VNOPlayerState.h"
 #include "Player/VNOPlayerCharacter.h"
 #include "SaveGame/VNOSupabaseSubsystem.h"

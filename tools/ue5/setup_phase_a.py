@@ -185,6 +185,18 @@ def setup_mannequin_assets():
     log(f"Da copy mesh -> {dst_mesh}")
 
 
+def setup_quinn_asset():
+    src_mesh = "/Game/Characters/Mannequins/Meshes/SKM_Quinn_Simple.SKM_Quinn_Simple"
+    dst_dir = "/Game/VNO/Characters/Mesh"
+    dst_mesh = f"{dst_dir}/SKM_VNOPlayer_F"
+    if unreal.EditorAssetLibrary.does_asset_exist(dst_mesh):
+        return
+    if not unreal.EditorAssetLibrary.does_asset_exist(src_mesh):
+        return
+    unreal.EditorAssetLibrary.duplicate_asset(src_mesh, dst_mesh)
+    log(f"Da copy mesh nu -> {dst_mesh}")
+
+
 def save_level():
     unreal.EditorLevelLibrary.save_current_level()
     log(f"Da luu {MAP_PATH}")
@@ -208,3 +220,4 @@ def run_phase_a_setup():
 
 
 if __name__ == "__main__":
+    run_phase_a_setup()

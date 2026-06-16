@@ -3,6 +3,8 @@
 #include <chrono>
 #include <memory>
 #include <cstdint>
+#include <cmath>
+
 
 namespace vno::server {
 
