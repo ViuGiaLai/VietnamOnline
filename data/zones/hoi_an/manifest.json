@@ -1,0 +1,7 @@
+{
+  "zone_id": "HOI_AN",
+  "version": "1.0",
+  "poi_count": 24,
+  "source": "data/zones/hoi_an/pois.json",
+  "note": "Full POI list loaded via shared/include/vno/data/HoiAnZoneData.hpp. JSON is source-of-truth target for tools/codegen."
+}

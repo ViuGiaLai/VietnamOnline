@@ -1,0 +1,9 @@
+#pragma once
+#include "vno/schemas/PlayerEntity.hpp"
+#include "vno/schemas/POI.hpp"
+#include "vno/schemas/QuestEntry.hpp"
+#include "vno/schemas/ChatMessage.hpp"
+#include "vno/schemas/PhotoEntry.hpp"
+#include "vno/schemas/WeatherState.hpp"
+#include "vno/schemas/Vehicle.hpp"
+#include "vno/schemas/NPC.hpp"

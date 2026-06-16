@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:16-alpine
+    env_file: ../../.env
+    environment:
+      POSTGRES_USER: vno
+      POSTGRES_PASSWORD: vno_dev
+      POSTGRES_DB: vietnam_online
+    ports: ["5432:5432"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ../database/schema_v1.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+
+  redis:
+    image: redis:7-alpine
+    env_file: ../../.env
+    ports: ["6379:6379"]
+    command: redis-server --appendonly yes
+
+volumes:
+  pgdata:

@@ -1,0 +1,25 @@
+# Secrets
+.env
+*.pem
+*.key
+
+# Build
+build/
+*.obj
+*.exe
+*.o
+
+# IDE
+.vs/
+.vscode/
+*.user
+
+# Game saves (local dev)
+data/saves/*.dat
+
+# Cache
+data/cache/
+
+# OS
+Thumbs.db
+.DS_Store

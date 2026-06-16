@@ -1,0 +1,10 @@
+#pragma once
+#include "../gateway/include/GatewayService.hpp"
+#include "../auth-service/include/AuthService.hpp"
+#include "../profile-service/include/ProfileService.hpp"
+#include "../world-service/include/WorldService.hpp"
+#include "../movement-sync-service/include/MovementSyncService.hpp"
+#include "../chat-service/include/ChatService.hpp"
+#include "../poi-service/include/PoiService.hpp"
+#include "../quest-service/include/QuestService.hpp"
+#include "../vehicle-service/include/VehicleService.hpp"

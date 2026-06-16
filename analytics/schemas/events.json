@@ -1,0 +1,8 @@
+{
+  "ftue.cinematic_start": { "category": "onboarding", "pillar": "AUTHENTICITY" },
+  "ftue.checkin_first": { "category": "onboarding", "kpi": "first_reward_2min" },
+  "quest.completed": { "category": "progression" },
+  "retention.daily_login": { "category": "retention", "loop": "daily" },
+  "churn.signal.idle_60s": { "category": "retention", "loop": "daily" },
+  "session.end_summary": { "category": "retention" }
+}

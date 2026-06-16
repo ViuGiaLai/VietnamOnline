@@ -1,0 +1,12 @@
+{
+  "poi_id": "POI-001",
+  "name_vi": "Chua Cau",
+  "name_en": "Japanese Covered Bridge",
+  "lat": 15.8771,
+  "lng": 108.3293,
+  "tier": 1,
+  "category": "HERITAGE",
+  "check_in_radius_m": 100,
+  "exp_reward": 800,
+  "first_discovery_bonus": 4000
+}
