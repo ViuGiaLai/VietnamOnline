@@ -33,7 +33,7 @@ Build: `build/vno_prototype.exe`
 
 ### 2.2 Unreal Engine 5
 ```text
-client/unreal/
+client/unreal 5.7/
 ├── VietnamOnline.uproject
 └── Source/VietnamOnline/
     ├── Core/              # Game instance, bootstrap zone

@@ -14,6 +14,9 @@ CREATE TABLE IF NOT EXISTS public.characters (
     explorer_lv SMALLINT DEFAULT 1,
     cultural_knowledge SMALLINT DEFAULT 0,
     reputation_score REAL DEFAULT 3.0,
+    quests_json JSONB DEFAULT '[]',
+    photo_count SMALLINT DEFAULT 0,
+    visited_pois TEXT[] DEFAULT '{}',
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 

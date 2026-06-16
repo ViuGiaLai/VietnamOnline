@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "VietnamOnline",
+			"Path": "..\\Source\\VietnamOnline.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "VietnamOnlineEditor",
+			"Path": "..\\Source\\VietnamOnlineEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

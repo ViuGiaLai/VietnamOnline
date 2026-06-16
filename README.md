@@ -26,7 +26,7 @@ doc/        Tai lieu thiet ke goc
 | **Redis** | `REDIS_URL` | Cache weather, session CCU, rate limit |
 | **OpenWeatherMap** | `OPENWEATHERMAP_API_KEY` | Thoi tiet that Hoi An (sync 15 phut) |
 | **OpenStreetMap** | `OSM_OVERPASS_URL` | POI + ten duong that (FR-06) |
-| **Cesium Ion** | `CESIUM_ION_TOKEN` | UE5 terrain 3D (client/unreal) |
+| **Cesium Ion** | `CESIUM_ION_TOKEN` | UE5 terrain 3D (client/unreal 5.7) |
 
 Kiem tra ket noi:
 
@@ -91,7 +91,7 @@ build\vno_prototype.exe
 ```
 
 ### UE5 3D Desktop (dung tai lieu thiet ke)
-Xem **[client/unreal/README.md](client/unreal/README.md)** — mo `VietnamOnline.uproject` trong Unreal Engine 5.3+, tao map, nhan **Play**.
+Xem **[client/unreal 5.7/README.md](client/unreal%205.7/README.md)** — mo `VietnamOnline.uproject` trong Unreal Engine 5.7+, tao map, nhan **Play**.
 
 Lenh console: `help`, `w/a/s/d`, `go 100 100`, `e` check-in, `rent`, `j` quest, `m` minimap
 

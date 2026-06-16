@@ -1,0 +1,19 @@
+{
+  "targets": {
+    "VietnamOnlineEditor": {
+      "targetType": "Editor",
+      "targetPath": "D:\\Downloads\\VietnamOnline_Project\\VietnamOnline\\client\\unreal 5.7\\Source\\VietnamOnlineEditor.Target.cs",
+      "projectPath": "D:\\Downloads\\VietnamOnline_Project\\VietnamOnline\\client\\unreal 5.7\\VietnamOnline.uproject",
+      "configurations": [
+        "Development"
+      ],
+      "platforms": [
+        "Win64"
+      ],
+      "architectures": [],
+      "configurationsAndPlatforms": [
+        "Development-Win64"
+      ]
+    }
+  }
+}

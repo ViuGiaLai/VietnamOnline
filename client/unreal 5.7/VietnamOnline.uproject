@@ -1,0 +1,35 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "5.7",
+	"Category": "Games",
+	"Description": "Vietnam Online - Virtual Cultural Tourism MMO (Hoi An MVP)",
+	"Modules": [
+		{
+			"Name": "VietnamOnline",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		},
+		{
+			"Name": "CesiumForUnreal",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Win64",
+				"Linux",
+				"Mac"
+			],
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/5c5a702c02434b4b874a784f646d75cb"
+		}
+	],
+	"TargetPlatforms": [
+		"Windows"
+	]
+}
