@@ -1,10 +1,14 @@
-#include "Player/VNOPlayerCharacter.h"
-#include "Player/VNOPlayerState.h"
-#include "Player/VNOAnimInstance.h"
+// Include engine utilities + actor types first so TActorIterator sees complete types
+#include "EngineUtils.h"
 #include "POI/VNOPOIActor.h"
 #include "Vehicles/VNOVehicleRentalStation.h"
 #include "Food/VNOFoodShop.h"
 #include "NPC/VNONPCActor.h"
+
+#include "Player/VNOPlayerCharacter.h"
+#include "Network/VNOWebSocketClient.h"
+#include "Player/VNOPlayerState.h"
+#include "Player/VNOAnimInstance.h"
 #include "Quest/VNOQuestSubsystem.h"
 #include "Weather/VNOWeatherSubsystem.h"
 #include "Social/VNOSocialSubsystem.h"

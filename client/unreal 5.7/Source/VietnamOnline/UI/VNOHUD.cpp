@@ -65,8 +65,8 @@ void AVNOHUD::DrawHUD()
     if (Player && Player->IsPhotoModeActive()) return;
 
     const float Pad = 12.f;
-    const float W = Canvas->SizeX;
-    const float H = Canvas->SizeY;
+    const float ScreenW = Canvas->SizeX;
+    const float ScreenH = Canvas->SizeY;
 
     // === GOC TRAI TREN: Stamina + VND ===
     if (Player)
@@ -102,7 +102,7 @@ void AVNOHUD::DrawHUD()
             }
         }
     }
-    DrawCornerPanel(TopRight, W - 260.f, Pad, TopRightBg);
+    DrawCornerPanel(TopRight, ScreenW - 260.f, Pad, TopRightBg);
 
     // === TRAI: Active Buffs ===
     if (Player)
@@ -111,28 +111,28 @@ void AVNOHUD::DrawHUD()
     }
 
     // === GOC TRAI DUOI: Active Quest ===
-    DrawCornerPanel(BuildBottomLeftText(), Pad, H - 80.f, FLinearColor(0.f, 0.f, 0.1f, 0.5f));
+    DrawCornerPanel(BuildBottomLeftText(), Pad, ScreenH - 80.f, FLinearColor(0.f, 0.f, 0.1f, 0.5f));
 
     // === TRAI DUOI: Chat overlay ===
     if (bChatVisible)
     {
-        DrawChatOverlay(Pad, H - 220.f, 300.f);
+        DrawChatOverlay(Pad, ScreenH - 220.f, 300.f);
     }
 
     // === GOC PHAI DUOI: Minimap ===
     if (Player && Player->IsMinimapVisible())
     {
-        float MX = W - MinimapSize - Pad;
-        float MY = H - MinimapSize - Pad;
+        float MX = ScreenW - MinimapSize - Pad;
+        float MY = ScreenH - MinimapSize - Pad;
         DrawMinimap(MX, MY, MinimapSize);
     }
 
     // === Party info (if in party) ===
-    DrawPartyInfo(W / 2.f - 80.f, Pad);
+    DrawPartyInfo(ScreenW / 2.f - 80.f, Pad);
 
     // === PHAI DUOI: Credits ===
     DrawText(TEXT("(c) OpenStreetMap | Cesium Ion"),
-        FLinearColor(0.6f, 0.6f, 0.6f, 0.7f), W * 0.5f - 100.f, H - 16.f, nullptr, 0.6f);
+        FLinearColor(0.6f, 0.6f, 0.6f, 0.7f), ScreenW * 0.5f - 100.f, ScreenH - 16.f, nullptr, 0.6f);
 }
 
 void AVNOHUD::DrawCornerPanel(const FString& Text, float X, float Y, const FLinearColor& Bg)

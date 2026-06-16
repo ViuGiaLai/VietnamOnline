@@ -2,7 +2,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "Network/VNOWebSocketClient.h"
 #include "VNOPlayerCharacter.generated.h"
 
 
@@ -10,6 +9,7 @@ class USpringArmComponent;
 class UCameraComponent;
 class UVNOChatWidget;
 class UVNOChatBridge;
+class UVNOWebSocketClient;
 
 UCLASS()
 class VIETNAMONLINE_API AVNOPlayerCharacter : public ACharacter
